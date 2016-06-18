@@ -1,0 +1,4 @@
+django>=1.9
+djangorestframework>=3.3.2
+pytz>=2015.7
+requests>=2.9.1
