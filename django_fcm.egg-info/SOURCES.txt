@@ -17,3 +17,7 @@ fcm/tests.py
 fcm/urls.py
 fcm/utils.py
 fcm/views.py
+fcm/management/__init__.py
+fcm/management/commands/__init__.py
+fcm/management/commands/fcm_messenger.py
+fcm/management/commands/fcm_urls.py
