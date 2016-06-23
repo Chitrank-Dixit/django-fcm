@@ -13,7 +13,7 @@ Quickstart
       from django.conf.urls import include, url
 
       urlpatterns = [
-          url(r'', include('fcm.urls')),
+          url(r'fcm/', include('fcm.urls')),
       ]
 
 
