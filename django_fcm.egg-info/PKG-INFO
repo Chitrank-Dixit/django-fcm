@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: django-fcm
-Version: 0.0.1
+Version: 0.0.2
 Summary: A Django package that enables sending messages using FCM (Firebase Cloud Messaging).
 Home-page: https://www.example.com/
 Author: Chitrank Dixit
