@@ -34,7 +34,7 @@ Quickstart
 
       INSTALLED_APPS = [
           # ...
-          'dcm',
+          'fcm',
       ]
 
       FCM_APIKEY = "<api_key>"
