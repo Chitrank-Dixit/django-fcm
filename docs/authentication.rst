@@ -43,7 +43,7 @@ Add appropriate path to the ``settings.py`` file:
     FCM_DEVICE_MODEL = 'your_app.models.MyDevice'
 
 
-Resource class
+View class
 --------------
 
 In your application, you need to create your own Resource class. It has to inherit from `gcm.resources.DeviceResource`.
@@ -71,7 +71,7 @@ In your application, you need to create your own Resource class. It has to inher
 
 
 
-You need to hook your resource class up in your ``urls.py`` file:
+You need to hook your viewset class up in your ``urls.py`` file:
 
 .. code-block:: python
 
@@ -103,6 +103,5 @@ Include your ``urls.py`` file in the main URL router:
     ]
 
 
-.. note:: See an example project ``gcm/example/apikeyauth_project``
 
 
