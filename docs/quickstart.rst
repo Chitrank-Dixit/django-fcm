@@ -39,4 +39,4 @@ Quickstart
 
       FCM_APIKEY = "<api_key>"
 
-.. note:: To obtain api key go to https://code.google.com/apis/console and grab the key for the server app.
+.. note:: To obtain api key go to https://console.firebase.google.com/ and grab the key for the server app.
