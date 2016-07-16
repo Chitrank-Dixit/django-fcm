@@ -43,31 +43,39 @@ Add appropriate path to the ``settings.py`` file:
     FCM_DEVICE_MODEL = 'your_app.models.MyDevice'
 
 
+Serializer class
+-----------------
+
+In your application , you can create the serializer, or customize it according the extra field you have included in your `Device` model.
+
+.. code-block:: python
+
+    from rest_framework import serializers
+    from fcm.models import Device
+    
+    
+    class DeviceSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Device
+            fields = ('dev_id','reg_id','name','is_active')
+
+
 View class
 --------------
 
-In your application, you need to create your own Resource class. It has to inherit from `gcm.resources.DeviceResource`.
+In your application, you need to create your view either through `ModelViewSet` or can user or override methods as specified in django-rest-framework documentation.
 
 
 .. code-block:: python
 
-    # your_app/resources.py
-    from gcm.resources import DeviceResource
-    from tastypie.authentication import ApiKeyAuthentication
-
-    class AuthResource(DeviceResource):
-
-        class Meta(DeviceResource.Meta):
-            authentication = ApiKeyAuthentication()
-
-        def get_queryset(self):
-            qs = super(AuthResource, self).get_queryset()
-            # to make sure that user can update only his own devices
-            return qs.filter(user=self.request.user)
-
-        def form_valid(self, form):
-            form.instance.user = self.request.user
-            return super(AuthResource, self).form_valid(form)
+    from rest_framework import viewsets
+    from fcm.models import Device
+    from fcm.serializers import DeviceSerializer
+    
+    
+    class DeviceViewSet(viewsets.ModelViewSet):
+        queryset = Device.objects.all()
+        serializer_class = DeviceSerializer
 
 
 
