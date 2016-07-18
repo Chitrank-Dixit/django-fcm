@@ -1,7 +1,7 @@
 Welcome to django-fcm's documentation
 =====================================
 
-`Django-fcm` is a reusable application. It serves as a server for the FCM service and allows you to register devices and send messages to them.
+`Django-fcm` is a reusable application. It serves as a server for the FCM (Firebase Cloud Messaing) service and allows you to register devices and send messages to them.
 
 
 
