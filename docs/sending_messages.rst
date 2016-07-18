@@ -47,9 +47,9 @@ Multicast message
 Topic messaging
 -----------------------
 
-``django-fcm`` supports sending messages to multiple devices that have opted in to a particular gcm topic::
+``django-fcm`` supports sending messages to multiple devices that have opted in to a particular fcm topic::
 
-    from fcm.api import GCMMessage
+    from fcm.api import FCMMessage
 
     FCMMessage().send({'message':'my test message'}, to='/topics/my-topic')
 
