@@ -1,7 +1,7 @@
-from django.shortcuts import render
 from rest_framework import viewsets
-from fcm.models import Device
+from fcm.utils import get_device_model
 from fcm.serializers import DeviceSerializer
+Device = get_device_model()
 
 
 class DeviceViewSet(viewsets.ModelViewSet):
