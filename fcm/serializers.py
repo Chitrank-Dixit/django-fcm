@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from fcm.models import Device
+from fcm.utils import get_device_model
+Device = get_device_model()
 
 
 class DeviceSerializer(serializers.ModelSerializer):
