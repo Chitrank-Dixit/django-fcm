@@ -7,6 +7,7 @@
 *.py[co]
 .tox/
 __pycache__
+.DS_Store
 MANIFEST
 .idea/
 dist/
