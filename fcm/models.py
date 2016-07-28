@@ -1,17 +1,15 @@
 import logging
-from django.conf import settings
 from django.db import models
-from fcm.utils import load_object, FCMMessage
+from fcm.utils import FCMMessage
 
 logger = logging.getLogger(__name__)
 
 
 class AbstractDevice(models.Model):
-    dev_id = models.CharField(verbose_name= ("Device ID"), max_length=50, unique=True,)
-    reg_id = models.CharField(verbose_name= ("Registration ID"), max_length=255, unique=True)
-    name = models.CharField(verbose_name= ("Name"), max_length=255, blank=True, null=True)
-    is_active = models.BooleanField(verbose_name= ("Is active?"), default=False)
-
+    dev_id = models.CharField(verbose_name=("Device ID"), max_length=50, unique=True,)
+    reg_id = models.CharField(verbose_name=("Registration ID"), max_length=255, unique=True)
+    name = models.CharField(verbose_name=("Name"), max_length=255, blank=True, null=True)
+    is_active = models.BooleanField(verbose_name=("Is active?"), default=False)
 
     def __str__(self):
         return self.dev_id
