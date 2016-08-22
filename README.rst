@@ -10,7 +10,7 @@ Install the package via ``pip``::
 
     pip install django-gcm  --process-dependency-links
 
-Add ``gcm`` to ``INSTALLED_APPS`` in ``settings.py``
+Add ``fcm`` to ``INSTALLED_APPS`` in ``settings.py``
 
 Add ``FCM_APIKEY`` to ``settings.py`` file:
 
