@@ -9,12 +9,12 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-fcm',
-    version='0.0.3',
+    version='0.0.5',
     packages=find_packages(),
     include_package_data=True,
     description='A Django package that enables sending messages using FCM (Firebase Cloud Messaging).',
     long_description=README,
-    url='https://www.example.com/',
+    url='https://django-fcm.readthedocs.io/en/latest/',
     author='Chitrank Dixit',
     author_email='chitrankdixit@gmail.com',
     zip_safe=False,
