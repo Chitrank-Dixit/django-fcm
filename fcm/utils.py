@@ -21,11 +21,26 @@ def get_device_model():
 class FCMMessage(object):
 
     def __init__(self):
-        self.api_key = settings.FCM_APIKEY
-
-        if not self.api_key:
+        """
+        you will not reach to test self.api_key if it is not set in settings...
+        """
+        try:
+            self.api_key = settings.FCM_APIKEY
+        except AttributeError:
             raise ImproperlyConfigured(
                 "You haven't set the 'FCM_APIKEY' setting yet.")
+
+        """
+        accessing settings.FCM_MAX_RECIPIENTS if not set
+        will crash the app, it can be set to 1 by default
+        """
+        try:
+            self.max_recipients = settings.FCM_MAX_RECIPIENTS
+        except AttributeError:
+            # some kind of warrning would be nice
+            print("Using default settings.FCM_MAX_RECIPIENTS "
+                              "value 1. Change it via settings")
+            self.max_recipients = 1
 
     def _chunks(self, items, limit):
         """
@@ -50,7 +65,7 @@ class FCMMessage(object):
 
         registration_ids = registration_ids or []
 
-        if len(registration_ids) > settings.FCM_MAX_RECIPIENTS:
+        if len(registration_ids) >self.max_recipients:
             ret = []
             for chunk in self._chunks(
                     registration_ids, settings.FCM_MAX_RECIPIENTS):
