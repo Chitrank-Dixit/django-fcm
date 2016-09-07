@@ -10,22 +10,27 @@ class Command(BaseCommand):
     args = '<device_id message>'
     help = 'Send message through fcm api'
 
-    option_list = BaseCommand.option_list + (
-        make_option(
+        def add_arguments(self, parser):
+        #this store list
+        parser.add_argument('device_id', type=int)
+        parser.add_argument('msg', type=str)
+
+        parser.add_argument(
             '--devices',
             action='store_true',
             dest='devices',
             default=False,
-            help='List of available devices'),
-        make_option(
+            help='List of available devices',
+        )
+        parser.add_argument(
             '--collapse-key',
             dest='collapse_key',
             default='message',
-            help='Set value of collapse_key flag, default is "message"'),
+            help='Set value of collapse_key flag, default is "message"',
         )
 
     def handle(self, *args, **options):
-
+        print(options)
         if options['devices']:
             devices = Device.objects.filter(is_active=True)
 
@@ -36,8 +41,8 @@ class Command(BaseCommand):
         else:
             collapse_key = options['collapse_key']
             try:
-                id = args[0]
-                message = args[1]
+                id = options['device_id']
+                message = options['msg']
             except IndexError:
                 raise CommandError(
                     "Invalid params. You have to put all params: "
