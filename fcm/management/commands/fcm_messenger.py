@@ -30,7 +30,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        print(options)
+        #print(options)
         if options['devices']:
             devices = Device.objects.filter(is_active=True)
 
