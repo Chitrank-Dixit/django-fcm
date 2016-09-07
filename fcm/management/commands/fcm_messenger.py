@@ -10,7 +10,7 @@ class Command(BaseCommand):
     args = '<device_id message>'
     help = 'Send message through fcm api'
 
-        def add_arguments(self, parser):
+    def add_arguments(self, parser):
         #this store list
         parser.add_argument('device_id', type=int)
         parser.add_argument('msg', type=str)
