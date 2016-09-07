@@ -1,15 +1,15 @@
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.core.urlresolvers import reverse
 from fcm.views import DeviceViewSet
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = "Show FCM urls"
 
     def show_line(self):
         self.stdout.write("%s\n" % ("-" * 30))
-
-    def handle_noargs(self, **options):
+        
+    def handle(self, **options):
         url_kwargs = {'api_name': 'v1'}
         # TODO add proper url resolvers
         #register_url = reverse('devices', kwargs=url_kwargs)
