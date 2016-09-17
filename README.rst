@@ -12,6 +12,13 @@ Install the package via ``pip``::
 
 Add ``fcm`` to ``INSTALLED_APPS`` in ``settings.py``
 
+.. code-block:: python
+
+   INSTALLED_APPS = [
+       ....,
+       fcm
+   ]
+
 Add ``FCM_APIKEY`` to ``settings.py`` file:
 
 .. code-block:: python
