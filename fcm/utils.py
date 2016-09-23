@@ -1,21 +1,24 @@
 import json
 import requests
+from django.apps import apps
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.encoding import force_text
 from django.conf import settings
 from django.utils.module_loading import import_module
 
-
-def load_object(object_path):
-
-    module_path, object_name = object_path.rsplit('.', 1)
-    module = import_module(module_path)
-
-    return getattr(module, object_name)
+DEFAULT_FCM_DEVICE_MODEL = 'fcm.Device'
 
 
 def get_device_model():
-    return load_object(settings.FCM_DEVICE_MODEL)
+    model = getattr(settings, "FCM_DEVICE_MODEL", DEFAULT_FCM_DEVICE_MODEL)
+    try:
+        return apps.get_model(model)
+    except ValueError:
+        raise ImproperlyConfigured("FCM_DEVICE_MODEL must be of the form 'app_label.model_name'")
+    except LookupError:
+        raise ImproperlyConfigured(
+            "FCM_DEVICE_MODEL refers to model '%s' that has not been installed" % settings.FCM_DEVICE_MODEL
+        )
 
 
 class FCMMessage(object):
@@ -37,9 +40,8 @@ class FCMMessage(object):
         try:
             self.max_recipients = settings.FCM_MAX_RECIPIENTS
         except AttributeError:
-            # some kind of warrning would be nice
-            print("Using default settings.FCM_MAX_RECIPIENTS "
-                              "value 1. Change it via settings")
+            # some kind of warning would be nice
+            print("Using default settings.FCM_MAX_RECIPIENTS value 1. Change it via settings")
             self.max_recipients = 1
 
     def _chunks(self, items, limit):
@@ -92,6 +94,7 @@ class FCMMessage(object):
 
         response.raise_for_status()
         return registration_ids, json.loads(force_text(response.content))
+
 
 class FCMMessage(FCMMessage):
     FCM_INVALID_ID_ERRORS = ['InvalidRegistration',
