@@ -50,4 +50,5 @@ class AbstractDevice(models.Model):
 
 
 class Device(AbstractDevice):
-    pass
+    class Meta:
+        swappable = 'FCM_DEVICE_MODEL'
