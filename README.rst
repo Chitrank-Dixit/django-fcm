@@ -11,6 +11,8 @@ Quickstart
 Install the package via ``pip``::
 
     pip install django-fcm  --process-dependency-links
+    
+
 
 Add ``fcm`` to ``INSTALLED_APPS`` in ``settings.py``
 
@@ -37,6 +39,18 @@ Add ``fcm urls`` to ``urls.py`` file:
       url(r'', include('fcm.urls')),
       ...
     ]
+
+
+Python 3 support
+----------------
+``django-fcm`` is fully compatible with Python 3.4 & 3.5
+
+Django Support
+----------------
+``django-fcm`` is fully compatible with Django 1.8, 1.9 and 1.10
+
+
+``django-fcm`` is fully compatible with django-rest-framework.
 
 
 Documentation: `https://django-fcm.readthedocs.org <https://django-fcm.readthedocs.org>`_
