@@ -1,5 +1,7 @@
 django-fcm
 ==========
+.. image:: https://badge.fury.io/py/django-fcm.svg
+    :target: https://badge.fury.io/py/django-fcm
 
 Firebase Cloud Messaging Server in Django
 
