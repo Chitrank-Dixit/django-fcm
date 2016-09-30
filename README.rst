@@ -49,7 +49,8 @@ Django Support
 ----------------
 ``django-fcm`` is fully compatible with Django 1.8, 1.9 and 1.10
 
-
+Django Rest Framework
+----------------
 ``django-fcm`` is fully compatible with django-rest-framework.
 
 
