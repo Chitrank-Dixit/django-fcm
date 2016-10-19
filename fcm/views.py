@@ -22,6 +22,7 @@ class DeviceViewSet(viewsets.ModelViewSet):
             device = Device(dev_id=serializer.data["dev_id"])
         device.is_active = True
         device.reg_id = serializer.data["reg_id"]
+        device.name = serializer.data["name"]
         device.save()
 
     def destroy(self, request, *args, **kwargs):
