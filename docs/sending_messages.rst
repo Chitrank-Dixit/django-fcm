@@ -15,7 +15,7 @@ Using ``console``:
 
 Using ``Django orm``::
 
-    from fcm.models import get_device_model
+    from fcm.utils import get_device_model
     Device = get_device_model()
 
     my_phone = Device.objects.get(name='My phone')
@@ -38,7 +38,7 @@ Multicast message
 
 ``django-fcm`` supports sending messages to multiple devices at once. E.g.::
 
-    from fcm.models import get_device_model
+    from fcm.utils import get_device_model
     Device = get_device_model()
     
     Device.objects.all().send_message({'message':'my test message'})
