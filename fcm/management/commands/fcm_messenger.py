@@ -7,13 +7,13 @@ Device = get_device_model()
 
 
 class Command(BaseCommand):
-    args = '<device_id message>'
+    args = ['<device_id>', '<message>']
     help = 'Send message through fcm api'
 
     def add_arguments(self, parser):
         #this store list
-        parser.add_argument('device_id', type=int)
-        parser.add_argument('msg', type=str)
+        parser.add_argument('--device_id', nargs='*', type=str)
+        parser.add_argument('--msg', nargs='*', type=str)
 
         parser.add_argument(
             '--devices',
@@ -30,7 +30,6 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        #print(options)
         if options['devices']:
             devices = Device.objects.filter(is_active=True)
 
@@ -41,8 +40,8 @@ class Command(BaseCommand):
         else:
             collapse_key = options['collapse_key']
             try:
-                id = options['device_id']
-                message = options['msg']
+                id = options['device_id'][0]
+                message = options['msg'][0]
             except IndexError:
                 raise CommandError(
                     "Invalid params. You have to put all params: "
