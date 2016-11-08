@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-fcm',
-    version='0.0.9',
+    version='0.1.0',
     packages=find_packages(),
     include_package_data=True,
     description='A Django package that enables sending messages using FCM (Firebase Cloud Messaging).',
@@ -23,7 +23,7 @@ setup(
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
-        'Framework :: Django :: 1.9',  # replace "X.Y" as appropriate
+        'Framework :: Django :: 1.10',  # replace "X.Y" as appropriate
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',  # example license
         'Operating System :: OS Independent',
