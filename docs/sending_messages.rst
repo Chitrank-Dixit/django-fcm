@@ -10,8 +10,8 @@ Using ``console``:
     > Devices list:
     > (#1) My phone
 
-    # python manage.py fcm_messenger <device_id> <message> [--collapse-key <key>]
-    $ python manage.py fcm_messenger 1 'my test message'
+    # python manage.py fcm_messenger --device_id=<device_id> --msg=<message> [--collapse-key <key>]
+    $ python manage.py fcm_messenger --device_id=1 --msg='my test message'
 
 Using ``Django orm``::
 
@@ -40,7 +40,7 @@ Multicast message
 
     from fcm.utils import get_device_model
     Device = get_device_model()
-    
+
     Device.objects.all().send_message({'message':'my test message'})
 
 
