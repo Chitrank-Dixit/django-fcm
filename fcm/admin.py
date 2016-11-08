@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
 from .forms import MessageForm
-from .models import get_device_model
+from .utils import get_device_model
 
 Device = get_device_model()
 
