@@ -1,6 +1,8 @@
 import logging
 from django.db.models.query import QuerySet
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
 from fcm.utils import FCMMessage
 
 logger = logging.getLogger(__name__)
@@ -26,6 +28,9 @@ class AbstractDevice(models.Model):
     reg_id = models.CharField(verbose_name=("Registration ID"), max_length=255, unique=True)
     name = models.CharField(verbose_name=("Name"), max_length=255, blank=True, null=True)
     is_active = models.BooleanField(verbose_name=("Is active?"), default=False)
+    creation_date = models.DateTimeField(verbose_name=_("Creation date"), auto_now_add=True)
+    modified_date = models.DateTimeField(verbose_name=_("Modified date"), auto_now=True)
+
 
     objects = DeviceManager()
 
