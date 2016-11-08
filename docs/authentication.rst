@@ -1,7 +1,7 @@
 Api key authentication
 ======================
 
-Allows you to manage access to the GCM api using one of the available ``tastypie`` authentication methods - `ApiKeyAuthentication`.
+Allows you to manage access to the FCM api using one of the available ``tastypie`` authentication methods - `ApiKeyAuthentication`.
 
 .. _django-tastypie Authentication: http://django-tastypie.readthedocs.org/en/latest/authentication.html
 
@@ -29,7 +29,7 @@ You need to extend `Device` model and add user field. (See :ref:`extending_devic
     # your_app/models.py
     from django.conf import settings
     from django.db import models
-    from gcm.models import AbstractDevice
+    from fcm.models import AbstractDevice
 
     class MyDevice(AbstractDevice):
 
