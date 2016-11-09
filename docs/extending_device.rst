@@ -29,6 +29,6 @@ Add appropriate path to the ``settings.py`` file:
 
 .. code-block:: python
 
-    FCM_DEVICE_MODEL = 'your_app.models.MyDevice'
+    FCM_DEVICE_MODEL = 'your_app.MyDevice'
 
 
