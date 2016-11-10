@@ -11,10 +11,9 @@ Device = get_device_model()
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    list_display = ['dev_id', 'name', 'modified_date', 'is_active']
+    list_display = ['dev_id', 'name', 'is_active']
     search_fields = ('dev_id', 'name')
     list_filter = ['is_active']
-    date_hierarchy = 'modified_date'
     readonly_fields = ('dev_id', 'reg_id')
     actions = ['send_message_action']
 
