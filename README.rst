@@ -54,4 +54,4 @@ Django Rest Framework
 ``django-fcm`` is fully compatible with django-rest-framework 3.3.2.
 
 
-Documentation: `https://django-fcm.readthedocs.org <https://django-fcm.readthedocs.org>`_
+Documentation: `https://django-fcm.readthedocs.org <https://django-fcm.readthedocs.org>
