@@ -21,62 +21,69 @@ def get_device_model():
         )
 
 
-class FCMMessage(object):
+class NotificationMessage(object):
 
-    def __init__(self):
-        """
-        you will not reach to test self.api_key if it is not set in settings...
-        """
-        try:
-            self.api_key = settings.FCM_APIKEY
-        except AttributeError:
-            raise ImproperlyConfigured(
-                "You haven't set the 'FCM_APIKEY' setting yet.")
+    '''
+    Background Notification Message object.
+    '''
 
-        """
-        accessing settings.FCM_MAX_RECIPIENTS if not set
-        will crash the app, it can be set to 1 by default
-        """
-        try:
-            self.max_recipients = settings.FCM_MAX_RECIPIENTS
-        except AttributeError:
-            # some kind of warning would be nice
-            print("Using default settings.FCM_MAX_RECIPIENTS value 1. Change it via settings")
-            self.max_recipients = 1
+    FCM_NOTIFICATION_KEYS = getattr(settings, "FCM_NOTIFICATION_KEYS", None)
 
-    def _chunks(self, items, limit):
-        """
-            Yield successive chunks from list \a items with a minimum size \a limit
-        """
-        for i in range(0, len(items), limit):
-            yield items[i:i + limit]
+    '''
+    Set default values to FCM notification keys inside settings.
+    '''
 
-    def send(self, data, registration_ids=None, **kwargs):
-        """
-        Send a FCM message for one or more devices, using json data
-        registration_ids: A list with the devices which will be receiving a message
-        data: The dict data which will be send
-        Optional params e.g.:
-            collapse_key: A string to group messages
-        For more info see the following documentation:
-        https://developer.android.com/google/fcm/server-ref.html#send-downstream
-        """
+    # FCM_NOTIFICATION_KEYS = {
+    #     "title": "My title for all notifications",
+    #     "icon": "My icon for all android notifications",
+    #     "sound": "My sound for all notifications",
+    #     "color": "My color for all android notifications icon #ffffff",
+    #     "tag": "My tag for all notifications",
+    #     "click_action": "My action when notification is pressed",
+    #     "body_loc_key": "",
+    #     "body_loc_args": "",
+    #     "title_loc_key": "",
+    #     "title_loc_args": "",
+    #     "badge: "Badge for all my iOS notifications"
+    # }
 
+    def __init__(self, message):
+        self.message = message
+
+    def create_notification_message(self):
+        '''
+        Background Notification Message constructor with default values from settings (not mandatory)
+        '''
+        notification_message = self.message.copy()
+        if self.FCM_NOTIFICATION_KEYS is not None:
+            notification_keys = \
+                {key: val for key, val in self.FCM_NOTIFICATION_KEYS.items() if key not in notification_message}
+            notification_message.update(notification_keys)
+        return notification_message
+
+
+class BaseFCMMessage(object):
+
+    def send(self, data, notification=None, registration_ids=None, **kwargs):
         if not isinstance(data, dict):
             data = {'msg': data}
 
         registration_ids = registration_ids or []
 
-        if len(registration_ids) >self.max_recipients:
+        if len(registration_ids) > self.max_recipients:
             ret = []
             for chunk in self._chunks(
                     registration_ids, settings.FCM_MAX_RECIPIENTS):
-                ret.append(self.send(data, registration_ids=chunk, **kwargs))
+                ret.append(self.send(data, notification, registration_ids=chunk, **kwargs))
             return ret
 
-        values = {
-            'data': data,
-            'collapse_key': 'message'}
+        values = {'data': data}
+
+        if notification is not None:
+            notification_obj = NotificationMessage(notification)
+            notification_message = notification_obj.create_notification_message()
+            values.update({'notification': notification_message})
+
         if registration_ids:
             values.update({'registration_ids': registration_ids})
         values.update(kwargs)
@@ -96,14 +103,14 @@ class FCMMessage(object):
         return registration_ids, json.loads(force_text(response.content))
 
 
-class FCMMessage(FCMMessage):
+class FCMMessage(BaseFCMMessage):
     FCM_INVALID_ID_ERRORS = ['InvalidRegistration',
                              'NotRegistered',
                              'MismatchSenderId']
 
-    def send(self, data, registration_ids=None, **kwargs):
+    def send(self, data, notification=None, registration_ids=None, **kwargs):
         response = super(FCMMessage, self).send(
-            data, registration_ids=registration_ids, **kwargs)
+            data, notification, registration_ids=registration_ids, **kwargs)
         chunks = [response] if not isinstance(response, list) else response
         for chunk in chunks:
             self.post_send(*chunk)
