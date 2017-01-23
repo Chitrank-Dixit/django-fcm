@@ -30,7 +30,7 @@ Quickstart
             /fcm/v1/devices/{id}/
 
 
-#. Configure `django-dcm` in your ``settings.py`` file::
+#. Configure `django-fcm` in your ``settings.py`` file::
 
       INSTALLED_APPS = [
           # ...
