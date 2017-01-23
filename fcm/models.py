@@ -8,11 +8,11 @@ logger = logging.getLogger(__name__)
 
 class DeviceQuerySet(QuerySet):
 
-    def send_message(self, data, **kwargs):
+    def send_message(self, data, notification=None, **kwargs):
         if self:
             registration_ids = list(self.values_list("reg_id", flat=True))
             return FCMMessage().send(
-                data, registration_ids=registration_ids, **kwargs)
+                data, notification, registration_ids=registration_ids, **kwargs)
 
 
 class DeviceManager(models.Manager):
