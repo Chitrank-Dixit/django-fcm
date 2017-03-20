@@ -85,6 +85,13 @@ class BaseFCMMessage(object):
             print("Using default settings.FCM_MAX_RECIPIENTS value 1. Change it via settings")
             self.max_recipients = 1
 
+    def _chunks(self, items, limit):
+        """
+            Yield successive chunks from list \a items with a minimum size \a limit
+        """
+        for i in range(0, len(items), limit):
+            yield items[i:i + limit]
+
     def send(self, data, notification=None, registration_ids=None, **kwargs):
         if not isinstance(data, dict):
             data = {'msg': data}
