@@ -11,7 +11,7 @@ Device = get_device_model()
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    list_display = ['dev_id', 'name', 'is_active']
+    list_display = [f.name for f in Device._meta.fields if f.name != "id" if f.name != "reg_id"]
     search_fields = ('dev_id', 'name')
     list_filter = ['is_active']
     readonly_fields = ('dev_id', 'reg_id')
