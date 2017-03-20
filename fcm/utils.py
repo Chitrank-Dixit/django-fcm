@@ -64,6 +64,27 @@ class NotificationMessage(object):
 
 class BaseFCMMessage(object):
 
+    def __init__(self):
+        """
+        you will not reach to test self.api_key if it is not set in settings...
+        """
+        try:
+            self.api_key = settings.FCM_APIKEY
+        except AttributeError:
+            raise ImproperlyConfigured(
+                "You haven't set the 'FCM_APIKEY' setting yet.")
+
+        """
+        accessing settings.FCM_MAX_RECIPIENTS if not set
+        will crash the app, it can be set to 1 by default
+        """
+        try:
+            self.max_recipients = settings.FCM_MAX_RECIPIENTS
+        except AttributeError:
+            # some kind of warning would be nice
+            print("Using default settings.FCM_MAX_RECIPIENTS value 1. Change it via settings")
+            self.max_recipients = 1
+
     def send(self, data, notification=None, registration_ids=None, **kwargs):
         if not isinstance(data, dict):
             data = {'msg': data}
