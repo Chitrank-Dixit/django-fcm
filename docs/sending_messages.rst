@@ -49,7 +49,7 @@ Topic messaging
 
 ``django-fcm`` supports sending messages to multiple devices that have opted in to a particular fcm topic::
 
-    from fcm.api import FCMMessage
+    from fcm.utils import FCMMessage
 
     FCMMessage().send({'message':'my test message'}, to='/topics/my-topic')
 
